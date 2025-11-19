@@ -19,16 +19,16 @@
     "y": 100,
     "wires": [
       [
-        "428807d896191b70"
+        "d542a17441589a19"
       ]
     ]
   },
   {
-    "id": "428807d896191b70",
+    "id": "d542a17441589a19",
     "type": "function",
     "z": "11a0b38c116a3479",
     "name": "Mapeo Vbias e Irms",
-    "func": "// El ESP32 envía: {\"Vbias\": \"X\", \"Irms\": \"Y\", ...}\n// Mapeamos Vbias a Field1 y Irms a Field2.\nvar Vbias = msg.payload.Vbias;\nvar Irms = msg.payload.Irms;\n\nmsg.payload = {\n    field1: Vbias,\n    field2: Irms\n};\nreturn msg;",
+    "func": "// El ESP32 envía: {\"Vbias\": \"X\", \"Irms\": \"Y\", ...}\nvar Vbias = msg.payload.Vbias;\nvar Irms = msg.payload.Irms;\n\n// Mapeamos Vbias a Field1 y Irms a Field2.\nmsg.payload = {\n    field1: Vbias,\n    field2: Irms\n};\nreturn msg;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -38,7 +38,8 @@
     "y": 100,
     "wires": [
       [
-        "61a007f9c8f85f52"
+        "61a007f9c8f85f52",
+        "d7285517173b9e4a"
       ]
     ]
   },
@@ -47,10 +48,27 @@
     "type": "thingspeak",
     "z": "11a0b38c116a3479",
     "name": "Enviar a ThingSpeak",
-    "channel_id": "3122525",
-    "api_key": "4ENYGRRCXX1DOBME", // Tu Write API Key
+    "channel_id": "3122525", // Incluir Channel ID
+    "api_key": "4ENYGRRCXX1DOBME", // Incluir Write API Key
     "x": 700,
     "y": 100,
+    "wires": []
+  },
+  {
+    "id": "d7285517173b9e4a",
+    "type": "debug",
+    "z": "11a0b38c116a3479",
+    "name": "DEBUG_RECIBIDO",
+    "active": true,
+    "tosidebar": true,
+    "console": true,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 710,
+    "y": 160,
     "wires": []
   }
 ]
