@@ -1,0 +1,56 @@
+[
+  {
+    "id": "11a0b38c116a3479",
+    "type": "tab",
+    "label": "Gateway LoRa ThingSpeak",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "e633d76b1070e176",
+    "type": "http in",
+    "z": "11a0b38c116a3479",
+    "name": "Recibir Datos ESP32 (POST)",
+    "url": "/api/lora-data",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 200,
+    "y": 100,
+    "wires": [
+      [
+        "428807d896191b70"
+      ]
+    ]
+  },
+  {
+    "id": "428807d896191b70",
+    "type": "function",
+    "z": "11a0b38c116a3479",
+    "name": "Mapeo Vbias e Irms",
+    "func": "// Mapeamos los datos recibidos por el ESP32 a los campos de ThingSpeak.\nvar Vbias = msg.payload.Vbias;\nvar Irms = msg.payload.Irms;\n\n// ThingSpeak espera 'field1', 'field2', etc.\nmsg.payload = {\n    field1: Vbias,\n    field2: Irms\n};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 450,
+    "y": 100,
+    "wires": [
+      [
+        "61a007f9c8f85f52"
+      ]
+    ]
+  },
+  {
+    "id": "61a007f9c8f85f52",
+    "type": "thingspeak",
+    "z": "11a0b38c116a3479",
+    "name": "Enviar a ThingSpeak",
+    "channel_id": "3122525",
+    "api_key": "4ENYGRRCXX1DOBME", // Tu Write API Key
+    "x": 700,
+    "y": 100,
+    "wires": []
+  }
+]
